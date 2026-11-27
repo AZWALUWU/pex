@@ -5,5 +5,5 @@ pages_build_output_dir = "./dist"
 [[d1_databases]]
 binding = "DB"
 database_name = "pex-db"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "2d6dadbc-730e-405e-af1d-841ac5ef324c"
 migrations_dir = "migrations"

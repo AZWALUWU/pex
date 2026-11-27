@@ -1,0 +1,29 @@
+{
+  "name": "pex",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "test": "node --experimental-strip-types tests/core.test.mjs && node --disable-warning=DEP0190 tests/integration.test.mjs",
+    "db:migrate:local": "wrangler d1 execute pex-db --local --file=./migrations/0001_init.sql",
+    "db:migrate:remote": "wrangler d1 migrations apply pex-db --remote",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^6.3.0",
+    "hono": "^4.13.22",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "~7.0.2",
+    "vite": "^8.4.0",
+    "wrangler": "^4.168.0"
+  }
+}

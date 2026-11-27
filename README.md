@@ -2,6 +2,9 @@
 
 PeX is a personal expense tracker and monthly budget planner. It keeps income and expenses, category budgets, and summaries in one place, with totals kept separate by currency.
 
+**Live app:** [https://pex-3j5.pages.dev](https://pex-3j5.pages.dev)  
+**Source:** [GitHub repository](https://github.com/AZWALUWU/pex)
+
 ## Features
 
 - Email and password accounts with account-scoped records

@@ -6,4 +6,5 @@ pages_build_output_dir = "./dist"
 binding = "DB"
 database_name = "pex-db"
 database_id = "2d6dadbc-730e-405e-af1d-841ac5ef324c"
+remote = true
 migrations_dir = "migrations"

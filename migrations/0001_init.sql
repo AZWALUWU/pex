@@ -52,4 +52,3 @@ CREATE TABLE budgets (
   UNIQUE(user_id, month, category)
 );
 CREATE INDEX budgets_user_month_idx ON budgets(user_id, month);
-PRAGMA user_version = 1;

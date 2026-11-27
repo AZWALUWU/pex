@@ -114,7 +114,17 @@ Landing page preview, captured from the local app:
 
 ![PeX landing page](screenshots/landing.png)
 
-Additional screenshots can be added to `screenshots/` using representative, non-sensitive demo data. Do not publish real account details or financial records.
+Additional views, captured locally with synthetic demo data:
+
+| Dashboard | Transactions |
+| --- | --- |
+| ![PeX dashboard](screenshots/dashboard.png) | ![PeX transactions](screenshots/transactions.png) |
+
+| Budgets | Settings |
+| --- | --- |
+| ![PeX budgets](screenshots/budgets.png) | ![PeX settings](screenshots/settings.png) |
+
+The screenshots contain a local demo email and synthetic transactions, not real financial records.
 
 ## Project structure
 

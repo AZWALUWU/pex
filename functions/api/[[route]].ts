@@ -47,6 +47,7 @@ app.use('/settings', authenticate)
 app.use('/transactions', authenticate)
 app.use('/transactions/*', authenticate)
 app.use('/budgets', authenticate)
+app.use('/budgets/*', authenticate)
 app.use('/summary', authenticate)
 app.use('/export.csv', authenticate)
 app.onError((error, c) => {
@@ -176,14 +177,14 @@ app.get('/budgets', async c => {
   return c.json({ budgets: budgets.results, spent: spent.results })
 })
 app.put('/budgets/:month/:category', async c => {
-  const month = c.req.param('month'), category = c.req.param('category')
+  const month = c.req.param('month'), category = c.req.param('category'), userId = c.get('userId')
   const body = z.object({ amount: z.number().finite().positive(), currency: z.enum(currencies) }).safeParse(await c.req.json().catch(() => null))
   if (!monthPattern.test(month) || !(expenseCategories as readonly string[]).includes(category) || !body.success) return c.json({ error: 'Anggaran tidak valid.' }, 400)
   let amountMinor: number
   try { amountMinor = amountToMinor(body.data.amount, body.data.currency) } catch (error) { return c.json({ error: error instanceof Error ? error.message : 'Jumlah tidak valid.' }, 400) }
-  const mixed = await c.env.DB.prepare('SELECT 1 FROM budgets WHERE user_id = ? AND month = ? AND currency != ? LIMIT 1').bind(c.get('userId'), month, body.data.currency).first()
+  const mixed = await c.env.DB.prepare('SELECT 1 FROM budgets WHERE user_id = ? AND month = ? AND currency != ? LIMIT 1').bind(userId, month, body.data.currency).first()
   if (mixed) return c.json({ error: 'Semua anggaran dalam bulan yang sama harus memakai mata uang yang sama.' }, 400)
-  await c.env.DB.prepare('INSERT INTO budgets (id, user_id, month, category, amount_minor, currency) VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT(user_id, month, category) DO UPDATE SET amount_minor = excluded.amount_minor, currency = excluded.currency').bind(crypto.randomUUID(), c.get('userId'), month, category, amountMinor, body.data.currency).run()
+  await c.env.DB.prepare('INSERT INTO budgets (id, user_id, month, category, amount_minor, currency) VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT(user_id, month, category) DO UPDATE SET amount_minor = excluded.amount_minor, currency = excluded.currency').bind(crypto.randomUUID(), userId, month, category, amountMinor, body.data.currency).run()
   return c.json({ success: true })
 })
 app.delete('/budgets/:month/:category', async c => {
